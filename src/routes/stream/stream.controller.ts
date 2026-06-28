@@ -22,6 +22,18 @@ export class StreamController {
     private readonly stremioService: StremioService,
   ) {}
 
+  @Get('/sync')
+  public async sync() {
+    await Promise.all([
+      this.providersService.indexMovies(),
+      this.providersService.indexSeries(),
+    ]);
+    // Refresh memory cache
+    await this.providersService['fetchMovies']();
+    await this.providersService['fetchSeries']();
+    return { success: true, message: "Providers synced successfully" };
+  }
+
   @Get('/:category/reflux:params.json')
   public async getStream(
     @Param('category') category: string,

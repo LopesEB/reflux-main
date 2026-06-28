@@ -350,14 +350,14 @@ export class ProvidersService implements OnModuleInit {
     return Array.from(ProvidersRegistryService.providers.values());
   }
 
-  private async indexMovies(): Promise<void> {
+  public async indexMovies(): Promise<void> {
     for (const provider of this.getProviders()) {
       const fetch = await provider.fetchMovies();
       await provider.indexMovies(fetch);
     }
   }
 
-  private async indexSeries(): Promise<void> {
+  public async indexSeries(): Promise<void> {
     for (const provider of this.getProviders()) {
       const fetch = await provider.fetchSeries();
       await provider.indexSeries(fetch);
