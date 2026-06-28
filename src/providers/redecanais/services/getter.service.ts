@@ -31,25 +31,35 @@ export class RedeCanaisGetterService {
   public constructor(private readonly apiService: RedeCanaisApiService) {}
 
   public async fetchMovies(): Promise<DelegateMovieProviders[]> {
-    const { data }: { data: string } =
-      await this.apiService.http.get(MOVIES_URL);
-    const indexes: string[] = data.match(RAW_REGEX) ?? [];
+    try {
+      const { data }: { data: string } =
+        await this.apiService.http.get(MOVIES_URL);
+      const indexes: string[] = data.match(RAW_REGEX) ?? [];
 
-    const sanitized = indexes.map(this.sanitizeMovie);
-    const formatted = sanitized.map(this.formatMovie);
+      const sanitized = indexes.map(this.sanitizeMovie);
+      const formatted = sanitized.map(this.formatMovie);
 
-    return formatted;
+      return formatted;
+    } catch (error) {
+      console.warn('Failed to fetch movies from RedeCanais:', error.message);
+      return [];
+    }
   }
 
   public async fetchSeries(): Promise<DelegateSeriesProviders[]> {
-    const { data }: { data: string } =
-      await this.apiService.http.get(SERIES_URL);
-    const indexes: string[] = data.match(RAW_REGEX) ?? [];
+    try {
+      const { data }: { data: string } =
+        await this.apiService.http.get(SERIES_URL);
+      const indexes: string[] = data.match(RAW_REGEX) ?? [];
 
-    const sanitized = indexes.map(this.sanitizeSeries);
-    const formatted = sanitized.map(this.formatSeries);
+      const sanitized = indexes.map(this.sanitizeSeries);
+      const formatted = sanitized.map(this.formatSeries);
 
-    return formatted;
+      return formatted;
+    } catch (error) {
+      console.warn('Failed to fetch series from RedeCanais:', error.message);
+      return [];
+    }
   }
 
   private sanitizeMovie(content: string) {
