@@ -2,6 +2,7 @@ import { PROVIDER_URL } from '@/providers/redecanais/constants/url';
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as https from 'https';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class RedeCanaisApiService {
@@ -13,7 +14,7 @@ export class RedeCanaisApiService {
     },
     httpsAgent: new https.Agent({
       rejectUnauthorized: false,
-      ciphers: 'ALL',
+      secureOptions: crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT,
     }),
   });
 
