@@ -10,6 +10,7 @@ datasource db {
 enum Provider {
   REDECANAIS
   VIZER
+  DORAMOGO
 }
 
 enum Audio {

@@ -5,10 +5,11 @@ import { ProvidersService } from '@/modules/providers/providers.service';
 import { ProvidersTrendingService } from '@/modules/providers/services/trending.service';
 import { TmdbModule } from '@/modules/tmdb/tmdb.module';
 import { RedeCanaisModule } from '@/providers/redecanais/redecanais.module';
+import { DoramogoModule } from '@/providers/doramogo/doramogo.module';
 import { Module } from '@nestjs/common';
 
 @Module({
-  imports: [EnvModule, PrismaModule, NlpModule, TmdbModule, RedeCanaisModule],
+  imports: [EnvModule, PrismaModule, NlpModule, TmdbModule, RedeCanaisModule, DoramogoModule],
   providers: [ProvidersService, ProvidersTrendingService],
   exports: [ProvidersService, ProvidersTrendingService],
 })
